@@ -41,7 +41,7 @@ namespace CatalogoDeJogos.Service
             await _unitOfWork.JogoRepository.Incluir(jogo);
         }
 
-        public async Task AlterarJogo(Guid id, JogoImputModel dto)
+        public async Task<JogoViewModel> AlterarJogo(Guid id, JogoImputModel dto)
         {
             var jogo = await _unitOfWork.JogoRepository.SelecionarPorId(id);
 
@@ -61,6 +61,16 @@ namespace CatalogoDeJogos.Service
             jogo.IdPlataforma = _unitOfWork.PlataformaRepository.IdPorNome(dto.Nome);
 
             await _unitOfWork.JogoRepository.Alterar(jogo);
+
+            var jogoDto = new JogoViewModel();
+            jogoDto.Id = jogo.Id;
+            jogoDto.Genero = jogo.Genero;
+            jogoDto.Nome = jogo.Nome;
+            jogoDto.PlataformaConsole = jogo.PlataformaConsole;
+            jogoDto.Preco = jogo.Preco;
+            jogoDto.Produtora = jogo.Produtora;
+
+            return jogoDto;
         }
 
         public async Task<List<JogoViewModel>> SelecionarTudo()

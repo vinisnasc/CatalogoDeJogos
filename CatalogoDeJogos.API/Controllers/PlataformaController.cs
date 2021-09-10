@@ -1,39 +1,35 @@
-﻿using CatalogoDeJogos.Model.DTO.ImputModel;
-using CatalogoDeJogos.Model.DTO.ViewModel;
-using CatalogoDeJogos.Model.Entities;
+﻿using CatalogoDeJogos.Model.DTO.ViewModel;
 using CatalogoDeJogos.Model.Interfaces.Service;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CatalogoDeJogos.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class JogoController : ControllerBase
+    public class PlataformaController : ControllerBase
     {
-        private readonly IJogoService _jogoService;
+        private readonly IPlataformaService _plataformaService;
 
-        public JogoController(IJogoService jogoService)
+        public PlataformaController(IPlataformaService plataformaService)
         {
-            _jogoService = jogoService;
+            _plataformaService = plataformaService;
         }
-        
+
         [HttpGet]
-        public async Task<IEnumerable<JogoViewModel>> Get()
+        public async Task<IEnumerable<PlataformaViewModel>> Get()
         {
-            return await _jogoService.SelecionarTudo();
+            return await _plataformaService.SelecionarTudo();
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var jogo = await _jogoService.SelecionarPorId(id);
+            var jogo = await _plataformaService.SelecionarPorId(id);
             return Ok(jogo);
         }
 
