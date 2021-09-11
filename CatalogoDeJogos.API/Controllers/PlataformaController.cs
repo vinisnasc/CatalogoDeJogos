@@ -26,34 +26,34 @@ namespace CatalogoDeJogos.API.Controllers
             return await _plataformaService.SelecionarTudo();
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id)
-        {
-            var jogo = await _plataformaService.SelecionarPorId(id);
-            return Ok(jogo);
-        }
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> Get(Guid id)
+        //{
+        //    var jogo = await _plataformaService.SelecionarPorId(id);
+        //    return Ok(jogo);
+        //}
 
-        // POST api/<JogoController>
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] JogoImputModel dto)
-        {
-            await _jogoService.CadastrarJogo(dto);
-            return Ok();
-        }
+        //// POST api/<JogoController>
+        //[HttpPost]
+        //public async Task<IActionResult> Post([FromBody] JogoImputModel dto)
+        //{
+        //    await _jogoService.CadastrarJogo(dto);
+        //    return Ok();
+        //}
 
-        // PUT api/<JogoController>/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, [FromBody] JogoImputModel dto)
-        {
-            var jogo = await _jogoService.AlterarJogo(id, dto);
-            return Ok(jogo);
-        }
+        //// PUT api/<JogoController>/5
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> Put(Guid id, [FromBody] JogoImputModel dto)
+        //{
+        //    var jogo = await _jogoService.AlterarJogo(id, dto);
+        //    return Ok(jogo);
+        //}
 
-        // DELETE api/<JogoController>/5
-        [HttpDelete("{id}")]
-        public async Task Delete(Guid id)
-        {
-            await _jogoService.DeletarJogo(id);
-        }
+        //// DELETE api/<JogoController>/5
+        //[HttpDelete("{id}")]
+        //public async Task Delete(Guid id)
+        //{
+        //    await _jogoService.DeletarJogo(id);
+        //}
     }
 }

@@ -10,7 +10,7 @@ namespace CatalogoDeJogos.Model.Interfaces.Service
     {
         Task CadastrarPlataforma(PlataformaImputModel dto);
         Task AlterarPlataforma(Guid id, PlataformaImputModel dto);
-        Task SelecionarPorId(Guid id);
+        Task<PlataformaViewModel> SelecionarPorId(Guid id);
         Task DeletarPlataforma(Guid id);
         Task<List<PlataformaViewModel>> SelecionarTudo();
     }
