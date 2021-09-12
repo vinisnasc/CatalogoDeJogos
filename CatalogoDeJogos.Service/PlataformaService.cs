@@ -37,7 +37,7 @@ namespace CatalogoDeJogos.Service
             await _unitOfWork.PlataformaRepository.Incluir(console);
         }
 
-        public async Task AlterarPlataforma(Guid id, PlataformaImputModel dto)
+        public async Task<PlataformaViewModel> AlterarPlataforma(Guid id, PlataformaImputModel dto)
         {
             var plat = await _unitOfWork.PlataformaRepository.SelecionarPorId(id);
 
@@ -46,7 +46,7 @@ namespace CatalogoDeJogos.Service
 
             var nome = _unitOfWork.PlataformaRepository.ProcurarPorNome(dto.Nome);
 
-            if (nome != null)
+            if (nome != null && plat.Nome != nome.Nome)
                 throw new PlataformaJaCadastradaException();
 
             plat.Nome = dto.Nome;
@@ -54,6 +54,15 @@ namespace CatalogoDeJogos.Service
             plat.Ano = dto.Ano;
 
             await _unitOfWork.PlataformaRepository.Alterar(plat);
+
+            PlataformaViewModel platVM = new()
+            {
+                Id = plat.Id,
+                Ano = plat.Ano,
+                Nome = plat.Nome,
+                Desenvolvedor = plat.Desenvolvedor
+            };
+            return platVM;
         }
 
         public async Task<List<PlataformaViewModel>> SelecionarTudo()

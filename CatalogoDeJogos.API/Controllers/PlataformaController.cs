@@ -1,4 +1,5 @@
-﻿using CatalogoDeJogos.Model.DTO.ViewModel;
+﻿using CatalogoDeJogos.Model.DTO.ImputModel;
+using CatalogoDeJogos.Model.DTO.ViewModel;
 using CatalogoDeJogos.Model.Interfaces.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,34 +27,25 @@ namespace CatalogoDeJogos.API.Controllers
             return await _plataformaService.SelecionarTudo();
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> Get(Guid id)
-        //{
-        //    var jogo = await _plataformaService.SelecionarPorId(id);
-        //    return Ok(jogo);
-        //}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(Guid id)
+        {
+            var plat = await _plataformaService.SelecionarPorId(id);
+            return Ok(plat);
+        }
 
-        //// POST api/<JogoController>
-        //[HttpPost]
-        //public async Task<IActionResult> Post([FromBody] JogoImputModel dto)
-        //{
-        //    await _jogoService.CadastrarJogo(dto);
-        //    return Ok();
-        //}
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] PlataformaImputModel dto)
+        {
+            await _plataformaService.CadastrarPlataforma(dto);
+            return Ok();
+        }
 
-        //// PUT api/<JogoController>/5
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> Put(Guid id, [FromBody] JogoImputModel dto)
-        //{
-        //    var jogo = await _jogoService.AlterarJogo(id, dto);
-        //    return Ok(jogo);
-        //}
-
-        //// DELETE api/<JogoController>/5
-        //[HttpDelete("{id}")]
-        //public async Task Delete(Guid id)
-        //{
-        //    await _jogoService.DeletarJogo(id);
-        //}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(Guid id, [FromBody] PlataformaImputModel dto)
+        {
+            var plat = await _plataformaService.AlterarPlataforma(id, dto);
+            return Ok(plat);
+        }
     }
 }

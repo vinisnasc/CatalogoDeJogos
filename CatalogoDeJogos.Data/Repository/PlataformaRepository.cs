@@ -1,6 +1,7 @@
 ﻿using CatalogoDeJogos.Data.ContextDB;
 using CatalogoDeJogos.Model.Entities;
 using CatalogoDeJogos.Model.Interfaces.Repository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +44,7 @@ namespace CatalogoDeJogos.Data.Repository
 
         public Guid IdPorNome(string nome)
         {
-            var plat = _contexto.Consoles.FirstOrDefault(x => x.Nome == nome);
+            var plat = _contexto.Consoles.FirstOrDefault(x => x.Nome.Contains(nome));
             return plat.Id;
         }
 

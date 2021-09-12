@@ -29,13 +29,13 @@ namespace CatalogoDeJogos.Service
 
             var game = new Jogo
             {
-                Nome = dto.Nome,
+                Nome = dto.Nome.ToLower(),
                 Id = Guid.NewGuid(),
-                Produtora = dto.Produtora,
+                Produtora = dto.Produtora.ToLower(),
                 Preco = dto.Preco,
-                Genero = (Genero)Enum.Parse(typeof(Genero), dto.Genero),
-                PlataformaConsole = _unitOfWork.PlataformaRepository.ProcurarPorNome(dto.Nome),
-                IdPlataforma = _unitOfWork.PlataformaRepository.IdPorNome(dto.Nome)
+                Genero = (Genero)Enum.Parse(typeof(Genero), dto.Genero.ToLower()),
+                PlataformaConsole = _unitOfWork.PlataformaRepository.ProcurarPorNome(dto.Nome.ToLower()),
+                IdPlataforma = _unitOfWork.PlataformaRepository.IdPorNome(dto.Nome.ToLower())
             };
 
             await _unitOfWork.JogoRepository.Incluir(jogo);

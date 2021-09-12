@@ -37,7 +37,6 @@ namespace CatalogoDeJogos.API.Controllers
             return Ok(jogo);
         }
 
-        // POST api/<JogoController>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] JogoImputModel dto)
         {
@@ -45,7 +44,7 @@ namespace CatalogoDeJogos.API.Controllers
             return Ok();
         }
 
-        // PUT api/<JogoController>/5
+
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(Guid id, [FromBody] JogoImputModel dto)
         {

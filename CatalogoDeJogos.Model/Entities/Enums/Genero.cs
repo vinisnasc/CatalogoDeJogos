@@ -2,12 +2,12 @@
 {
     public enum Genero
     {
-        Aventura,
-        Tiro,
-        Luta,
-        Corrida,
-        Plataforma,
-        Esporte,
-        Terror
+        aventura,
+        tiro,
+        luta,
+        corrida,
+        plataforma,
+        esporte,
+        terror
     }
 }

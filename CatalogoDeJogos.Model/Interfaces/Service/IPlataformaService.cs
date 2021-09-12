@@ -9,7 +9,7 @@ namespace CatalogoDeJogos.Model.Interfaces.Service
     public interface IPlataformaService
     {
         Task CadastrarPlataforma(PlataformaImputModel dto);
-        Task AlterarPlataforma(Guid id, PlataformaImputModel dto);
+        Task<PlataformaViewModel> AlterarPlataforma(Guid id, PlataformaImputModel dto);
         Task<PlataformaViewModel> SelecionarPorId(Guid id);
         Task DeletarPlataforma(Guid id);
         Task<List<PlataformaViewModel>> SelecionarTudo();
