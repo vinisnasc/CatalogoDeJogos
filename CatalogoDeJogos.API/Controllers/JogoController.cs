@@ -52,7 +52,7 @@ namespace CatalogoDeJogos.API.Controllers
         /// <param name="dto">Dados do jogo</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Post([FromQuery] JogoImputModel dto)
+        public async Task<IActionResult> Post([FromQuery] JogoInputModel dto)
         {
             await _jogoService.CadastrarJogo(dto);
             return Ok();
@@ -65,7 +65,7 @@ namespace CatalogoDeJogos.API.Controllers
         /// <param name="dto">Novos dados do jogo</param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, [FromQuery] JogoImputModel dto)
+        public async Task<IActionResult> Put(Guid id, [FromQuery] JogoInputModel dto)
         {
             var jogo = await _jogoService.AlterarJogo(id, dto);
             return Ok(jogo);

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CatalogoDeJogos.Model.DTO.ImputModel
 {
-    public class PlataformaImputModel
+    public class PlataformaInputModel
     {
         [Required(ErrorMessage = "Nome da plataforma é obrigatorio!")]
         [StringLength(20, MinimumLength = 3, ErrorMessage = "O nome da plataforma deve conter entre 3 e 20 caracteres!")]

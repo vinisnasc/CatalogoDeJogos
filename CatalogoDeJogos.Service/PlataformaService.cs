@@ -19,7 +19,7 @@ namespace CatalogoDeJogos.Service
             _unitOfWork = unitOfWork;
         }
 
-        public async Task CadastrarPlataforma(PlataformaImputModel dto)
+        public async Task CadastrarPlataforma(PlataformaInputModel dto)
         {
             Plataforma plat = _unitOfWork.PlataformaRepository.ProcurarPorNome(dto.Nome.Trim().ToLower());
 
@@ -29,28 +29,28 @@ namespace CatalogoDeJogos.Service
             var console = new Plataforma
             {
                 Id = Guid.NewGuid(),
-                Nome = dto.Nome,
-                Desenvolvedor = dto.Desenvolvedor,
+                Nome = dto.Nome.Trim().ToLower(),
+                Desenvolvedor = dto.Desenvolvedor.Trim().ToLower(),
                 Ano = dto.Ano
             };
 
             await _unitOfWork.PlataformaRepository.Incluir(console);
         }
 
-        public async Task<PlataformaViewModel> AlterarPlataforma(Guid id, PlataformaImputModel dto)
+        public async Task<PlataformaViewModel> AlterarPlataforma(Guid id, PlataformaInputModel dto)
         {
             var plat = await _unitOfWork.PlataformaRepository.SelecionarPorId(id);
 
             if (plat == null)
                 throw new PlataformaNaoExisteException();
 
-            var nome = _unitOfWork.PlataformaRepository.ProcurarPorNome(dto.Nome);
+            var nome = _unitOfWork.PlataformaRepository.ProcurarPorNome(dto.Nome.Trim().ToLower());
 
             if (nome != null && plat.Nome != nome.Nome)
                 throw new PlataformaJaCadastradaException();
 
-            plat.Nome = dto.Nome;
-            plat.Desenvolvedor = dto.Desenvolvedor;
+            plat.Nome = dto.Nome.Trim().ToLower();
+            plat.Desenvolvedor = dto.Desenvolvedor.ToLower().Trim();
             plat.Ano = dto.Ano;
 
             await _unitOfWork.PlataformaRepository.Alterar(plat);

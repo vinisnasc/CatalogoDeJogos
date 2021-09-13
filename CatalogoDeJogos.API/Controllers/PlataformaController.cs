@@ -49,7 +49,7 @@ namespace CatalogoDeJogos.API.Controllers
         /// <param name="dto">Dados do console</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Post([FromQuery] PlataformaImputModel dto)
+        public async Task<IActionResult> Post([FromQuery] PlataformaInputModel dto)
         {
             await _plataformaService.CadastrarPlataforma(dto);
             return Ok();
@@ -62,7 +62,7 @@ namespace CatalogoDeJogos.API.Controllers
         /// <param name="dto">Novos dados do console</param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, [FromQuery] PlataformaImputModel dto)
+        public async Task<IActionResult> Put(Guid id, [FromQuery] PlataformaInputModel dto)
         {
             var plat = await _plataformaService.AlterarPlataforma(id, dto);
             return Ok(plat);

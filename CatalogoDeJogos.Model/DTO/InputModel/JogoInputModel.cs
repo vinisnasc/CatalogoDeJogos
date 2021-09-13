@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CatalogoDeJogos.Model.DTO.ImputModel
 {
-    public class JogoImputModel
+    public class JogoInputModel
     {
         [Required]
         [StringLength(20, MinimumLength = 3, ErrorMessage = "O nome do jogo deve conter entre 3 e 20 caracteres!")]

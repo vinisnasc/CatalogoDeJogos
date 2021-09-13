@@ -20,7 +20,7 @@ namespace CatalogoDeJogos.Service
             _unitOfWork = unitOfWork;
         }
 
-        public async Task CadastrarJogo(JogoImputModel dto)
+        public async Task CadastrarJogo(JogoInputModel dto)
         {
             Jogo jogo = _unitOfWork.JogoRepository.ProcurarPorNome(dto.Nome);
 
@@ -29,36 +29,36 @@ namespace CatalogoDeJogos.Service
 
             var game = new Jogo
             {
-                Nome = dto.Nome.ToLower(),
+                Nome = dto.Nome.ToLower().Trim(),
                 Id = Guid.NewGuid(),
-                Produtora = dto.Produtora.ToLower(),
+                Produtora = dto.Produtora.ToLower().Trim(),
                 Preco = dto.Preco,
-                Genero = (Genero)Enum.Parse(typeof(Genero), dto.Genero.ToLower()),
-                PlataformaConsole = _unitOfWork.PlataformaRepository.ProcurarPorNome(dto.PlataformaConsole.ToLower()),
-                IdPlataforma = _unitOfWork.PlataformaRepository.IdPorNome(dto.PlataformaConsole.ToLower())
+                Genero = (Genero)Enum.Parse(typeof(Genero), dto.Genero.ToLower().Trim()),
+                PlataformaConsole = _unitOfWork.PlataformaRepository.ProcurarPorNome(dto.PlataformaConsole.ToLower().Trim()),
+                IdPlataforma = _unitOfWork.PlataformaRepository.IdPorNome(dto.PlataformaConsole.ToLower().Trim())
             };
 
             await _unitOfWork.JogoRepository.Incluir(game);
         }
 
-        public async Task<JogoViewModel> AlterarJogo(Guid id, JogoImputModel dto)
+        public async Task<JogoViewModel> AlterarJogo(Guid id, JogoInputModel dto)
         {
             var jogo = await _unitOfWork.JogoRepository.SelecionarPorId(id);
 
             if (jogo == null)
                 throw new JogoNaoExisteException();
 
-            var nome = _unitOfWork.JogoRepository.ProcurarPorNome(dto.Nome);
+            var nome = _unitOfWork.JogoRepository.ProcurarPorNome(dto.Nome.Trim().ToLower());
 
             if (nome != null && nome.Nome != jogo.Nome)
                 throw new JogoJaCadastradoException();
 
-            jogo.Nome = dto.Nome;
-            jogo.Produtora = dto.Produtora;
+            jogo.Nome = dto.Nome.ToLower().Trim();
+            jogo.Produtora = dto.Produtora.ToLower().Trim();
             jogo.Preco = dto.Preco;
-            jogo.Genero = (Genero)Enum.Parse(typeof(Genero), dto.Genero);
-            jogo.PlataformaConsole = _unitOfWork.PlataformaRepository.ProcurarPorNome(dto.Nome);
-            jogo.IdPlataforma = _unitOfWork.PlataformaRepository.IdPorNome(dto.PlataformaConsole);
+            jogo.Genero = (Genero)Enum.Parse(typeof(Genero), dto.Genero.ToLower().Trim());
+            jogo.PlataformaConsole = _unitOfWork.PlataformaRepository.ProcurarPorNome(dto.Nome.ToLower().Trim());
+            jogo.IdPlataforma = _unitOfWork.PlataformaRepository.IdPorNome(dto.PlataformaConsole.Trim().ToLower());
 
             await _unitOfWork.JogoRepository.Alterar(jogo);
 

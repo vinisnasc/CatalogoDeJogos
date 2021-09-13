@@ -8,8 +8,8 @@ namespace CatalogoDeJogos.Model.Interfaces.Service
 {
     public interface IJogoService
     {
-        Task CadastrarJogo(JogoImputModel dto);
-        Task<JogoViewModel> AlterarJogo(Guid id, JogoImputModel dto);
+        Task CadastrarJogo(JogoInputModel dto);
+        Task<JogoViewModel> AlterarJogo(Guid id, JogoInputModel dto);
         Task<List<JogoViewModel>> SelecionarTudo();
         Task<JogoViewModel> SelecionarPorId(Guid id);
         Task DeletarJogo(Guid id);
