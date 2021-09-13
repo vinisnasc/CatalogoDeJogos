@@ -34,11 +34,11 @@ namespace CatalogoDeJogos.Service
                 Produtora = dto.Produtora.ToLower(),
                 Preco = dto.Preco,
                 Genero = (Genero)Enum.Parse(typeof(Genero), dto.Genero.ToLower()),
-                PlataformaConsole = _unitOfWork.PlataformaRepository.ProcurarPorNome(dto.Nome.ToLower()),
-                IdPlataforma = _unitOfWork.PlataformaRepository.IdPorNome(dto.Nome.ToLower())
+                PlataformaConsole = _unitOfWork.PlataformaRepository.ProcurarPorNome(dto.PlataformaConsole.ToLower()),
+                IdPlataforma = _unitOfWork.PlataformaRepository.IdPorNome(dto.PlataformaConsole.ToLower())
             };
 
-            await _unitOfWork.JogoRepository.Incluir(jogo);
+            await _unitOfWork.JogoRepository.Incluir(game);
         }
 
         public async Task<JogoViewModel> AlterarJogo(Guid id, JogoImputModel dto)
@@ -50,7 +50,7 @@ namespace CatalogoDeJogos.Service
 
             var nome = _unitOfWork.JogoRepository.ProcurarPorNome(dto.Nome);
 
-            if (nome != null)
+            if (nome != null && nome.Nome != jogo.Nome)
                 throw new JogoJaCadastradoException();
 
             jogo.Nome = dto.Nome;
@@ -58,15 +58,15 @@ namespace CatalogoDeJogos.Service
             jogo.Preco = dto.Preco;
             jogo.Genero = (Genero)Enum.Parse(typeof(Genero), dto.Genero);
             jogo.PlataformaConsole = _unitOfWork.PlataformaRepository.ProcurarPorNome(dto.Nome);
-            jogo.IdPlataforma = _unitOfWork.PlataformaRepository.IdPorNome(dto.Nome);
+            jogo.IdPlataforma = _unitOfWork.PlataformaRepository.IdPorNome(dto.PlataformaConsole);
 
             await _unitOfWork.JogoRepository.Alterar(jogo);
 
             var jogoDto = new JogoViewModel();
             jogoDto.Id = jogo.Id;
-            jogoDto.Genero = jogo.Genero;
+            jogoDto.Genero = jogo.Genero.ToString();
             jogoDto.Nome = jogo.Nome;
-            jogoDto.PlataformaConsole = jogo.PlataformaConsole;
+            jogoDto.PlataformaConsole = jogo.PlataformaConsole.Nome;
             jogoDto.Preco = jogo.Preco;
             jogoDto.Produtora = jogo.Produtora;
 
@@ -86,8 +86,8 @@ namespace CatalogoDeJogos.Service
                     Nome = item.Nome,
                     Produtora = item.Produtora,
                     Preco = item.Preco,
-                    Genero = item.Genero,
-                    PlataformaConsole = item.PlataformaConsole
+                    Genero = item.Genero.ToString(),
+                    PlataformaConsole = item.PlataformaConsole.Nome
                 };
                 listvm.Add(jogoVM);
             }
@@ -100,15 +100,15 @@ namespace CatalogoDeJogos.Service
             if (jogo == null)
                 throw new JogoNaoExisteException();
 
-            var jg = await _unitOfWork.JogoRepository.SelecionarPorId(id);
+            var plat = await _unitOfWork.PlataformaRepository.SelecionarPorId(jogo.IdPlataforma);
 
             var jogovm = new JogoViewModel();
-            jogovm.Id = jg.Id;
-            jogovm.Nome = jg.Nome;
-            jogovm.Genero = jg.Genero;
-            jogovm.PlataformaConsole = jg.PlataformaConsole;
-            jogovm.Preco = jg.Preco;
-            jogovm.Produtora = jg.Produtora;
+            jogovm.Id = jogo.Id;
+            jogovm.Nome = jogo.Nome;
+            jogovm.Genero = jogo.Genero.ToString();
+            jogovm.PlataformaConsole = plat.Nome;
+            jogovm.Preco = jogo.Preco;
+            jogovm.Produtora = jogo.Produtora;
 
             return jogovm;
         }

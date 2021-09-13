@@ -14,7 +14,7 @@ namespace CatalogoDeJogos.Model.DTO.ViewModel
         public string Nome { get; set; }
         public string Produtora { get; set; }
         public double Preco { get; set; }
-        public Genero Genero { get; set; }
-        public Plataforma PlataformaConsole { get; set; }
+        public string Genero { get; set; }
+        public string PlataformaConsole { get; set; }
     }
 }

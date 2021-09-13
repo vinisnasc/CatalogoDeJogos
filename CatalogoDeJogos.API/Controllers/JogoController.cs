@@ -24,12 +24,21 @@ namespace CatalogoDeJogos.API.Controllers
             _jogoService = jogoService;
         }
         
+        /// <summary>
+        /// Mostra todos os jogos no banco de dados
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IEnumerable<JogoViewModel>> Get()
         {
             return await _jogoService.SelecionarTudo();
         }
 
+        /// <summary>
+        /// Mostra os dados de um jogo ao informar seu Id
+        /// </summary>
+        /// <param name="id">Id do jogo</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
@@ -37,22 +46,36 @@ namespace CatalogoDeJogos.API.Controllers
             return Ok(jogo);
         }
 
+        /// <summary>
+        /// Cadastra um novo jogo no banco de dados
+        /// </summary>
+        /// <param name="dto">Dados do jogo</param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] JogoImputModel dto)
+        public async Task<IActionResult> Post([FromQuery] JogoImputModel dto)
         {
             await _jogoService.CadastrarJogo(dto);
             return Ok();
         }
 
-
+        /// <summary>
+        /// Atualiza um jogo
+        /// </summary>
+        /// <param name="id">Id do jogo a ser atualizado</param>
+        /// <param name="dto">Novos dados do jogo</param>
+        /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, [FromBody] JogoImputModel dto)
+        public async Task<IActionResult> Put(Guid id, [FromQuery] JogoImputModel dto)
         {
             var jogo = await _jogoService.AlterarJogo(id, dto);
             return Ok(jogo);
         }
 
-        // DELETE api/<JogoController>/5
+        /// <summary>
+        /// Deleta um jogo informando seu id
+        /// </summary>
+        /// <param name="id">Id do jogo</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task Delete(Guid id)
         {

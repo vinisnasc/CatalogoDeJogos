@@ -8,7 +8,7 @@ namespace CatalogoDeJogos.Data.Maps
     {
         public void Configure(EntityTypeBuilder<Jogo> builder)
         {
-            builder.ToTable("Funcionarios");
+            builder.ToTable("Jogos");
 
             builder.HasKey(x => x.Id);
 

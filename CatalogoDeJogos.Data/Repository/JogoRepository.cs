@@ -1,6 +1,7 @@
 ﻿using CatalogoDeJogos.Data.ContextDB;
 using CatalogoDeJogos.Model.Entities;
 using CatalogoDeJogos.Model.Interfaces.Repository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace CatalogoDeJogos.Data.Repository
 
         public override async Task<List<Jogo>> SelecionarTudo()
         {
-            return await base.SelecionarTudo();
+            return await contexto.Set<Jogo>().Include(x => x.PlataformaConsole).ToListAsync();
         }
 
         public Jogo ProcurarPorNome(string nome)
